@@ -7,6 +7,7 @@ import { registerIndieID } from "native-notify";
 function SignupScreen({ navigation }) {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
   const [password, setPassword] = useState(null);
   const [retypedPassword, setRetypedPassword] = useState(null);
   const [error, setError] = useState(null);
@@ -18,21 +19,33 @@ function SignupScreen({ navigation }) {
   const emailInputHandler = (enteredEmail) => {
     setEmail(enteredEmail);
   }
+  
+    const phoneNumberInputHandler = (enteredPhoneNumber) => {
+      setPhoneNumber(enteredPhoneNumber);
+    }
 
   const passwordInputHandler = (enteredPassword) => {
     setPassword(enteredPassword);
   }
 
-  const retypedPasswordInputHandler = (enteredText) => {
-    setRetypedPassword(enteredText);
+  const retypedPasswordInputHandler = (reenteredPassword) => {
+    setRetypedPassword(reenteredPassword);
   }
 
-  const handleSignup = async () => {
+  const checkForInputErrors = () => {
     if (password !== retypedPassword) {
       setError('Passwords do not match');
       console.log(error);
-      return;
+      return true;
+    } else if (!email) {
+      setError('All fields must be filled');
+      console.log(error);
+      return true;
     }
+  }
+
+  const handleSignup = async () => {
+    if (checkForInputErrors() === true) return;
     
     setError(null);
     
@@ -44,12 +57,13 @@ function SignupScreen({ navigation }) {
       body: JSON.stringify({
         name: name,
         email: email.toLowerCase(),
+        phoneNumber: phoneNumber,
         password: password
       }),
     })
     
     let data = await response.json();
-    console.log(data);
+    console.log('fetch request ran');
 
     if (response.status === 200) {
       console.log("token:", data.token);
@@ -83,6 +97,13 @@ function SignupScreen({ navigation }) {
         placeholder="Your email here!"
         onChangeText={emailInputHandler}
         value={email}
+      />
+      <Text style={styles.inputLabel}>Phone Number</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Your phone number here!"
+        onChangeText={phoneNumberInputHandler}
+        value={phoneNumber}
       />
       <Text style={styles.inputLabel}>Password</Text>
       <TextInput

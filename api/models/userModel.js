@@ -18,6 +18,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
   emergencyContacts: {
     type: Array
   },
@@ -27,13 +31,18 @@ const userSchema = new Schema({
 });
 
 // static signup method
-userSchema.statics.signup = async function (name, email, password) {
+userSchema.statics.signup = async function (name, email, phoneNumber, password) {
   // validation
+  console.log(phoneNumber);
+  console.log(typeof phoneNumber);
   if (!name || !email || !password) {
     throw Error("All fields must be filled");
   }
   if (!validator.isEmail(email)) {
     throw Error("Email is not valid");
+  }
+  if (!validator.isMobilePhone(phoneNumber, 'en-GB')) {
+    throw Error("Must be a valid UK mobile number");
   }
   if (!validator.isStrongPassword(password)) {
     throw Error("Password not strong enough");
@@ -48,7 +57,7 @@ userSchema.statics.signup = async function (name, email, password) {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  const user = await this.create({ name, email, password: hash });
+  const user = await this.create({ name, email, phoneNumber, password: hash });
 
   return user;
 };
