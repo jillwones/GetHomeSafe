@@ -33,7 +33,7 @@ const userSchema = new Schema({
 // static signup method
 userSchema.statics.signup = async function (name, email, phoneNumber, password) {
   // validation
-  if (!name || !email || !password) {
+  if (!name || !email || !phoneNumber || !password) {
     throw Error("All fields must be filled");
   }
   if (!validator.isEmail(email)) {
