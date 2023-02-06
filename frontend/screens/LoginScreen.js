@@ -19,6 +19,12 @@ function LoginScreen({ navigation }) {
   }
 
   const handleLogin = async () => {
+    if (!email) {
+      setError('All fields must be filled');
+      console.log(error);
+      return;
+    }
+    
     setError(null);
 
     let response = await fetch("http://localhost:8080/api/user/login", {
