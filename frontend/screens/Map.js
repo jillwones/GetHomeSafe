@@ -89,6 +89,7 @@ const Map = () => {
           subID: `${contact.id}`,
           appId: 6193,
           appToken: "rWR1WMqaI8HcWYDUZQFStS",
+          // change below to name
           title: `${userId} hit SOS!!!`,
           message: "Get in touch ASAP!!!",
         }),
@@ -103,6 +104,8 @@ const Map = () => {
           body: JSON.stringify({
             notification: {
               title: `Someone hit SOS!`,
+              // change above and below to name
+              // change below to message about popup
               message: `${contact.id} hit SOS get in touch!!`,
               timeSent: new Date(),
             },
@@ -123,6 +126,7 @@ const Map = () => {
           subID: `${contact.id}`,
           appId: 6193,
           appToken: "rWR1WMqaI8HcWYDUZQFStS",
+          // change below to name
           title: `${userId} got home safe`,
           message: "All good",
         }),
@@ -137,6 +141,7 @@ const Map = () => {
           body: JSON.stringify({
             notification: {
               title: `Someone got home safe!`,
+              // change above and below to name
               message: `${contact.id} got home safe`,
               timeSent: new Date(),
             },
