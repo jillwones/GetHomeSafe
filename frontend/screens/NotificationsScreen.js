@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Alert,
   View,
+  Modal,
+  Pressable
 } from "react-native";
 
 import Swipelist from "react-native-swipeable-list-view";
@@ -15,6 +17,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 const NotificationsScreen = () => {
   const [notifications, setNotifications] = useState(null);
+  const [notificationModalIsVisible, setNotificationModalIsVisible] = useState(false);
 
   const loadNotifications = async () => {
     const userId = await AsyncStorage.getItem("user_id");
@@ -60,6 +63,10 @@ const NotificationsScreen = () => {
     loadNotifications();
   }
 
+  const handleNotificationModal = () => {
+    setNotificationModalIsVisible(!notificationModalIsVisible);
+  }
+  
   return (
     <View>
       <View style={styles.titleContainer}>
@@ -74,24 +81,54 @@ const NotificationsScreen = () => {
             <Swipelist
               data={notifications}
               renderRightItem={(notifications, index) => (
-                <View key={index} style={styles.notificationContainer}>
-                  <View style={styles.textContainer}>
-                    <Text style={styles.notificationTitle}>
-                      {notifications.title}
-                    </Text>
-                    <Text style={styles.notificationMessage}>
-                      {notifications.message}
-                    </Text>
-                  </View>
-                  <View style={styles.timeContainer}>
-                    <Text style={styles.notificationTime}>
-                      {moment
-                        .utc(notifications.timeSent)
-                        .local()
-                        .startOf("seconds")
-                        .fromNow()}
-                    </Text>
-                  </View>
+                <View>
+                  { !notifications.title.includes('got home safe') &&
+                    <Pressable key={index} style={styles.notificationContainer} onPress={handleNotificationModal}>
+                      <View style={styles.textContainer}>
+                        <Text style={styles.notificationTitle}>
+                          {notifications.title}
+                        </Text>
+                        <Text style={styles.notificationMessage}>
+                          {notifications.message}
+                        </Text>
+                      </View>
+                      <View style={styles.timeContainer}>
+                        <Text style={styles.notificationTime}>
+                          {moment
+                            .utc(notifications.timeSent)
+                            .local()
+                            .startOf("seconds")
+                            .fromNow()}
+                        </Text>
+                      </View>
+                      {notificationModalIsVisible &&
+                        <Modal>
+                          <Text>Test modal for SOS notifications</Text>
+                        </Modal>
+                      }
+                    </Pressable>
+                  }
+                  { notifications.title.includes('got home safe') &&
+                    <View key={index} style={styles.notificationContainer}>
+                      <View style={styles.textContainer}>
+                        <Text style={styles.notificationTitle}>
+                          {notifications.title}
+                        </Text>
+                        <Text style={styles.notificationMessage}>
+                          {notifications.message}
+                        </Text>
+                      </View>
+                      <View style={styles.timeContainer}>
+                        <Text style={styles.notificationTime}>
+                          {moment
+                            .utc(notifications.timeSent)
+                            .local()
+                            .startOf("seconds")
+                            .fromNow()}
+                        </Text>
+                      </View>
+                    </View>
+                  }
                 </View>
               )}
               renderHiddenItem={(notifications, index) => (
