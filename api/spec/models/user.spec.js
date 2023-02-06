@@ -20,6 +20,16 @@ describe("User model", () => {
     expect(user.email).toEqual("someone@example.com");
   });
 
+  it("has a phone number", () => {
+    const user = new User({
+      name: "Will Jones",
+      email: "someone@example.com",
+      phoneNumber: "07771777888",
+      password: "ABCabc123!",
+    });
+    expect(user.phoneNumber).toEqual("07771777888");
+  });
+
   it("has a password", () => {
     const user = new User({
       name: "Will Jones",
@@ -103,6 +113,19 @@ describe("User model", () => {
         expect(err).toEqual(Error("Email already in use"));
       }
     });
+
+    it("should throw an error if the phone number is not a valid UK mobile number", async () => {
+      try {
+        await User.signup(
+          "John Doe",
+          "will@will.com",
+          "12345123123",
+          "ABCabc123!",
+        );
+      } catch (err) {
+        expect(err).toEqual(Error("Must be a valid UK mobile number"));
+      }
+    })
 
     it("should throw an error if the password is too weak", async () => {
       try {
