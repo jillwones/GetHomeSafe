@@ -14,6 +14,7 @@ describe("User model", () => {
     const user = new User({
       name: "Will Jones",
       email: "someone@example.com",
+      phoneNumber: "07771777888",
       password: "ABCabc123!",
     });
     expect(user.email).toEqual("someone@example.com");
@@ -23,6 +24,7 @@ describe("User model", () => {
     const user = new User({
       name: "Will Jones",
       email: "someone@example.com",
+      phoneNumber: "07771777888",
       password: "ABCabc123!",
     });
     expect(user.password).toEqual("ABCabc123!");
@@ -40,6 +42,7 @@ describe("User model", () => {
     const user = new User({
       name: "Will Jones",
       email: "someone@example.com",
+      phoneNumber: "07771777888",
       password: "password",
     });
 
@@ -52,6 +55,7 @@ describe("User model", () => {
         expect(users[0]).toMatchObject({
           name: "Will Jones",
           email: "someone@example.com",
+          phoneNumber: "07771777888",
           password: "password",
         });
         done();
@@ -73,6 +77,7 @@ describe("User model", () => {
         await User.signup(
           "John Doe",
           "johndoe@example",
+          "07771777888",
           "ABCabc123!",
         );
       } catch (err) {
@@ -84,12 +89,14 @@ describe("User model", () => {
       await User.signup(
         "Will Jones",
         "will@will.com",
+        "07771777888",
         "ABCabc123!",
       );
       try {
         await User.signup(
           "John Doe",
           "will@will.com",
+          "07771777889",
           "ABCabc123!",
         );
       } catch (err) {
@@ -99,7 +106,7 @@ describe("User model", () => {
 
     it("should throw an error if the password is too weak", async () => {
       try {
-        await User.signup("Will Jones", "will@will.com", "1234");
+        await User.signup("Will Jones", "will@will.com", "07771777888", "1234");
       } catch (err) {
         expect(err).toEqual(
           Error(
@@ -113,6 +120,7 @@ describe("User model", () => {
       const user = await User.signup(
         "Will Jones",
         "will@will.com",
+        "07771777888",
         "ABCabc123!"
       );
 
@@ -131,7 +139,7 @@ describe("User model", () => {
     });
 
     it("should throw an error if invalid email", async () => {
-      await User.signup("Will Jones", "will@will.com", "ABCabc123!");
+      await User.signup("Will Jones", "will@will.com", "07771777888", "ABCabc123!");
       try {
         await User.login("bob@bob.com", "1234");
       } catch (err) {
@@ -140,7 +148,7 @@ describe("User model", () => {
     });
 
     it("should throw an error if invalid password", async () => {
-      await User.signup("Will Jones", "will@will.com", "ABCabc123!");
+      await User.signup("Will Jones", "will@will.com", "07771777888", "ABCabc123!");
       try {
         await User.login("will@will.com", "1234");
       } catch (err) {
@@ -149,7 +157,7 @@ describe("User model", () => {
     });
 
     it("should return the user if no errors thrown", async () => {
-      await User.signup("Will Jones", "will@will.com", "ABCabc123!");
+      await User.signup("Will Jones", "will@will.com", "07771777888", "ABCabc123!");
       const user = await User.login("will@will.com", "ABCabc123!");
 
       expect(user).not.toBeNull();

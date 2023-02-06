@@ -13,11 +13,12 @@ describe("/users", () => {
   });
 
   describe("POST, when name, email and password are provided", () => {
-    test("the response code is 201", async () => {
+    test("the response code is 200", async () => {
       let response = await request(app).post("/api/user/signup").send({
         name: "poppy",
         email: "poppy@email.com",
-        password: "passwordQ123!",
+        phoneNumber: "07512345678",
+        password: "passwordQ123!"
       });
       expect(response.statusCode).toBe(200);
     });
@@ -26,7 +27,8 @@ describe("/users", () => {
       await request(app).post("/api/user/signup").send({
         name: "scarlett",
         email: "scarlett@email.com",
-        password: "passwordQ123!",
+        phoneNumber: "07512345678",
+        password: "passwordQ123!"
       });
       let users = await User.find();
       let newUser = users[users.length - 1];
@@ -92,6 +94,7 @@ describe("/users/login", () => {
     let response = await request(app).post("/api/user/signup").send({
       name: "poppy",
       email: "poppy@email.com",
+      phoneNumber: "07771777888",
       password: "passwordQ123!",
     });
   });
@@ -123,11 +126,13 @@ describe("emergencyContact", () => {
     let response1 = await request(app).post("/api/user/signup").send({
       name: "poppy",
       email: "poppy@email.com",
+      phoneNumber: "07771777888",
       password: "passwordQ123!",
     });
     let response2 = await request(app).post("/api/user/signup").send({
       name: "jim",
       email: "jim@email.com",
+      phoneNumber: "07771777999",
       password: "passwordQ123!",
     });
   });
