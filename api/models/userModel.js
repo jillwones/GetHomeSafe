@@ -33,8 +33,6 @@ const userSchema = new Schema({
 // static signup method
 userSchema.statics.signup = async function (name, email, phoneNumber, password) {
   // validation
-  console.log(phoneNumber);
-  console.log(typeof phoneNumber);
   if (!name || !email || !password) {
     throw Error("All fields must be filled");
   }
