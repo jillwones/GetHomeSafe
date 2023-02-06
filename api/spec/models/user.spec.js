@@ -53,7 +53,7 @@ describe("User model", () => {
       name: "Will Jones",
       email: "someone@example.com",
       phoneNumber: "07771777888",
-      password: "password",
+      password: "ABCabc123!",
     });
 
     user.save((err) => {
@@ -66,7 +66,7 @@ describe("User model", () => {
           name: "Will Jones",
           email: "someone@example.com",
           phoneNumber: "07771777888",
-          password: "password",
+          password: "ABCabc123!",
         });
         done();
       });
