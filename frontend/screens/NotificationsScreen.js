@@ -4,12 +4,14 @@ import {
   StyleSheet,
   Text,
   ScrollView,
-  TouchableOpacity,
+  // TouchableOpacity,
   Alert,
   View,
   Modal,
   Pressable
 } from "react-native";
+
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Swipelist from "react-native-swipeable-list-view";
 import moment from "moment";
@@ -83,7 +85,7 @@ const NotificationsScreen = () => {
               renderRightItem={(notifications, index) => (
                 <View>
                   { !notifications.title.includes('got home safe') &&
-                    <Pressable key={index} style={styles.notificationContainer} onPress={handleNotificationModal}>
+                    <TouchableOpacity key={index} style={styles.notificationContainer} onPress={handleNotificationModal}>
                       <View style={styles.textContainer}>
                         <Text style={styles.notificationTitle}>
                           {notifications.title}
@@ -103,10 +105,17 @@ const NotificationsScreen = () => {
                       </View>
                       {notificationModalIsVisible &&
                         <Modal>
-                          <Text>Test modal for SOS notifications</Text>
+                          <View style={styles.emergencyModal}>
+                            <Pressable style={styles.closeButton} onPress={handleNotificationModal}>
+                              <Ionicons name={'close'} size={36} color={'white'} />
+                            </Pressable>
+                            <View style={styles.modalMainContents}>
+                              <Text style={styles.modalText}>Emergency modal</Text>
+                            </View>
+                          </View>
                         </Modal>
                       }
-                    </Pressable>
+                    </TouchableOpacity>
                   }
                   { notifications.title.includes('got home safe') &&
                     <View key={index} style={styles.notificationContainer}>
@@ -236,6 +245,32 @@ const styles = StyleSheet.create({
   rightActionText: {
     color: "white",
     fontWeight: "600",
+  },
+  emergencyModal: {
+    flex: 1,
+    marginBottom: 100,
+    marginTop: 106,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#64C5F0",
+  },
+  closeButton: {
+    flex: 0.1,
+    justifyContent: 'flex-start',
+    padding: 20,
+    marginLeft: 'auto',
+  },
+  modalMainContents: {
+    flex: 0.9,
+    justifyContent: 'center',
+    marginBottom: 80,
+  },
+  modalText: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: 'white',
+    marginBottom: 10,
+    alignSelf: 'center',
   },
 });
 
