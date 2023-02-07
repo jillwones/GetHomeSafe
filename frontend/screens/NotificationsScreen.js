@@ -108,7 +108,8 @@ const NotificationsScreen = () => {
                               <Ionicons name={'close'} size={36} color={'black'} />
                             </Pressable>
                             <View style={styles.modalMainContents}>
-                              <Text style={styles.modalText}>Emergency notification</Text>
+                              <Text style={styles.modalText}>Joe Bloggs didn't make it home!</Text>
+                              <Text style={styles.lastLocationText}>Their last location:</Text>
                               <View style={styles.mapContainer}>
                                 <Text>Map with latest location goes here</Text>
                               </View>
@@ -272,7 +273,7 @@ const styles = StyleSheet.create({
     flex: 0.1,
     justifyContent: 'flex-start',
     paddingTop: 20,
-    paddingRight: 37,
+    paddingRight: 20,
     marginLeft: 'auto',
   },
   modalMainContents: {
@@ -283,11 +284,18 @@ const styles = StyleSheet.create({
     marginBottom: 70,
   },
   modalText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '500',
     color: 'black',
     marginBottom: 20,
     alignSelf: 'center',
+  },
+  lastLocationText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: 'black',
+    marginBottom: 8,
+    // alignSelf: 'left',
   },
   mapContainer: {
     height: 500,
@@ -302,6 +310,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     width: 400,
+    borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
