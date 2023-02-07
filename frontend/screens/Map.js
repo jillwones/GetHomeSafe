@@ -106,7 +106,7 @@ const Map = () => {
               title: `Someone hit SOS!`,
               // change above and below to name
               // change below to message about popup
-              message: `${contact.id} hit SOS get in touch!!`,
+              message: `${contact.id} hit SOS! Tap here for emergency actions!`,
               timeSent: new Date(),
             },
           }),

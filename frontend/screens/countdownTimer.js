@@ -72,8 +72,8 @@ const Timer = ({ isRunning, setIsRunning, duration }) => {
           },
           body: JSON.stringify({
             notification: {
-              title: `Someone didnt get home safe...`,
-              message: `${contact.id} get in touch!!` ,
+              title: `${contact.id} didnt get home safe...`,
+              message: `Tap here for emergency actions!` ,
               timeSent: new Date(),
             },
           }),
