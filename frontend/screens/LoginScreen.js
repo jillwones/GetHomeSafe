@@ -36,12 +36,15 @@ function LoginScreen({ navigation }) {
     })
 
     let data = await response.json()
+    console.log('date: ', data);
     console.log('token:', data.token);
     console.log('user_id:', data.user_id);
+    console.log('name: ', data.name);
     
     if(response.status === 200) {
       AsyncStorage.setItem("token", data.token);
       AsyncStorage.setItem("user_id", data.user_id);
+      AsyncStorage.setItem("name", data.name);
       setEmail(null);
       setPassword(null);
       await registerIndieID(`${data.user_id}`, 6193, "rWR1WMqaI8HcWYDUZQFStS");

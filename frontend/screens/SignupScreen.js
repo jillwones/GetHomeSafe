@@ -64,12 +64,14 @@ function SignupScreen({ navigation }) {
     
     let data = await response.json();
     console.log('fetch request ran');
+    console.log('name: ', data.name);
 
     if (response.status === 200) {
       console.log("token:", data.token);
       console.log('user_id:', data.user_id);
       AsyncStorage.setItem("token", data.token);
       AsyncStorage.setItem("user_id", data.user_id);
+      AsyncStorage.setItem("name", data.name);
       setName(null);
       setEmail(null);
       setPassword(null);
