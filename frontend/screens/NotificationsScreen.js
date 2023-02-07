@@ -4,15 +4,13 @@ import {
   StyleSheet,
   Text,
   ScrollView,
-  // TouchableOpacity,
   Alert,
   View,
   Modal,
-  Pressable
+  Pressable,
+  Linking
 } from "react-native";
-
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 import Swipelist from "react-native-swipeable-list-view";
 import moment from "moment";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -107,10 +105,26 @@ const NotificationsScreen = () => {
                         <Modal>
                           <View style={styles.emergencyModal}>
                             <Pressable style={styles.closeButton} onPress={handleNotificationModal}>
-                              <Ionicons name={'close'} size={36} color={'white'} />
+                              <Ionicons name={'close'} size={36} color={'black'} />
                             </Pressable>
                             <View style={styles.modalMainContents}>
-                              <Text style={styles.modalText}>Emergency modal</Text>
+                              <Text style={styles.modalText}>Emergency notification</Text>
+                              <View style={styles.mapContainer}>
+                                <Text>Map with latest location goes here</Text>
+                              </View>
+                              <TouchableOpacity
+                                style={styles.callButton}
+                                onPress={() => Linking.openURL('tel:07770123456')}
+                              >
+                                <Text style={styles.callButtonText}>Call Joe Bloggs</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity
+                                style={styles.callButton}
+                                onPress={() => Linking.openURL('tel:999')}
+                                // onPress={() => Linking.openURL('https://www.google.com')}
+                              >
+                                <Text style={styles.callButtonText}>Call 999</Text>
+                              </TouchableOpacity>
                             </View>
                           </View>
                         </Modal>
@@ -248,29 +262,54 @@ const styles = StyleSheet.create({
   },
   emergencyModal: {
     flex: 1,
-    marginBottom: 100,
-    marginTop: 106,
+    marginTop: 46,
+    marginBottom: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#64C5F0",
+    backgroundColor: "white",
   },
   closeButton: {
     flex: 0.1,
     justifyContent: 'flex-start',
-    padding: 20,
+    paddingTop: 20,
+    paddingRight: 37,
     marginLeft: 'auto',
   },
   modalMainContents: {
     flex: 0.9,
     justifyContent: 'center',
-    marginBottom: 80,
+    alignItems: 'center',
+    marginTop: 0,
+    marginBottom: 70,
   },
   modalText: {
     fontSize: 20,
     fontWeight: '500',
-    color: 'white',
-    marginBottom: 10,
+    color: 'black',
+    marginBottom: 20,
     alignSelf: 'center',
+  },
+  mapContainer: {
+    height: 500,
+    width: 400,
+    margin: 10,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  callButton: {
+    marginTop: 15,
+    marginBottom: 10,
+    padding: 10,
+    width: 400,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
+  },
+  callButtonText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: 'white',
   },
 });
 
